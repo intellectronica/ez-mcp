@@ -1,4 +1,4 @@
-# EZ-MCP: The Fastest Way to Build MCP Servers
+# [EZ-MCP](https://ai.intellectronica.net/ez-mcp): The Fastest Way to Build MCP Servers
 
 **Get an MCP server running in under 2 minutes!** This repository contains complete, ready-to-run templates for single file self-contained MCP servers in both Python/uv and TypeScript/Deno.
 
