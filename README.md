@@ -1,111 +1,475 @@
-# EZ-MCP: Simple Model Context Protocol Servers
+# EZ-MCP: The Fastest Way to Build MCP Servers
 
-The easiest path to getting an MCP server going! This repository contains complete, production-ready examples of MCP servers in both Python and TypeScript/Deno.
+**Get an MCP server running in under 2 minutes!** This repository contains the absolute easiest templates for creating Model Context Protocol (MCP) servers. Whether you need to quickly prototype an idea, solve an immediate problem, or build a production server, these templates are your fastest path forward.
 
-## 📁 What's Included
+## 🚀 Why EZ-MCP?
 
-- **`ez-mcp.py`** - Python MCP server using the FastMCP framework
-- **`ez-mcp.ts`** - TypeScript MCP server using Deno and the official MCP SDK
+- **⚡ Instant Setup**: Copy, paste, run - no complex configuration needed
+- **🎯 Production Ready**: Both templates use official Anthropic SDKs
+- **📚 Comprehensive Examples**: Everything documented with working code
+- **🔧 Easily Extensible**: Add your own tools, resources, and prompts in minutes
+- **💡 Perfect for Experimentation**: The fastest way to test MCP ideas locally
 
-Both implementations are functionally equivalent and demonstrate:
-- 📊 **Resources**: Server information endpoint
-- 🛠️ **Tools**: Interactive greeting functionality  
-- 📝 **Prompts**: Greeting template generation
+## 📁 What You Get
+
+Two functionally identical, battle-tested templates:
+
+- **`ez-mcp.py`** - Python server using official MCP SDK with FastMCP
+- **`ez-mcp.ts`** - TypeScript server using official MCP SDK with Deno
+
+Each template demonstrates all core MCP features:
+- 📊 **Resources**: Dynamic data sources for LLM context
+- 🛠️ **Tools**: Functions LLMs can call to perform actions  
+- 📝 **Prompts**: Reusable templates for LLM interactions
 - ⚙️ **Configuration**: Environment variable support
+- 🛡️ **Error Handling**: Robust input validation
+- 🔒 **Type Safety**: Full type checking (Pydantic/Zod)
 
-## 🚀 Quick Start
+## ⚡ Quick Test Drive
 
-### Python Version (ez-mcp.py)
+Want to see these servers in action? Pick your language and run:
 
+### Python Version
 ```bash
-# Run directly with uv (recommended)
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Clone and run immediately
+git clone <this-repo>
+cd ez-mcp
 uv run ez-mcp.py
-
-# Or with development mode
-uv run mcp dev ez-mcp.py
-
-# Or install in MCP Client
-uv run mcp install ez-mcp.py
 ```
 
-### TypeScript/Deno Version (ez-mcp.ts)
-
+### TypeScript Version  
 ```bash
-# Run directly with Deno (recommended)
+# Install Deno (if not already installed)
+curl -fsSL https://deno.land/install.sh | sh
+
+# Clone and run immediately
+git clone <this-repo>
+cd ez-mcp
 deno run --allow-all ez-mcp.ts
-
-# Or make executable and run
-chmod +x ez-mcp.ts
-./ez-mcp.ts
-
-# Or with MCP Inspector for development
-mcp dev deno run --allow-all ez-mcp.ts
 ```
 
-## 🔧 MCP Client Configuration
+Both servers will start immediately and show you what's available!
 
-Add either server to your `mcp.json`:
+## 🎯 Create Your Own Server (Step-by-Step)
 
-### Python Server
+### Method 1: Copy and Customize (Fastest)
+
+#### For Python:
+1. **Copy the template**:
+   ```bash
+   curl -O https://raw.githubusercontent.com/your-repo/ez-mcp/main/ez-mcp.py
+   # Or just copy the ez-mcp.py file contents
+   ```
+
+2. **Rename and customize**:
+   ```bash
+   cp ez-mcp.py my-awesome-server.py
+   ```
+
+3. **Edit the server details** (lines 45-48):
+   ```python
+   mcp = FastMCP(
+       name="My Awesome Server",  # <- Change this
+       dependencies=["mcp>=1.9.0"]
+   )
+   ```
+
+4. **Add your own tools** (copy this pattern):
+   ```python
+   @mcp.tool()
+   def my_custom_tool(input_text: str) -> str:
+       """Describe what your tool does"""
+       # Your logic here
+       return f"Processed: {input_text}"
+   ```
+
+5. **Run your server**:
+   ```bash
+   uv run my-awesome-server.py
+   ```
+
+#### For TypeScript:
+1. **Copy the template**:
+   ```bash
+   curl -O https://raw.githubusercontent.com/your-repo/ez-mcp/main/ez-mcp.ts
+   # Or just copy the ez-mcp.ts file contents
+   ```
+
+2. **Rename and customize**:
+   ```bash
+   cp ez-mcp.ts my-awesome-server.ts
+   chmod +x my-awesome-server.ts
+   ```
+
+3. **Edit the server details** (lines 163-166):
+   ```typescript
+   const server = new McpServer({
+     name: "My Awesome Server",  // <- Change this
+     version: "1.0.0"
+   });
+   ```
+
+4. **Add your own tools** (copy this pattern):
+   ```typescript
+   server.tool(
+     "my-custom-tool",
+     { input_text: z.string() },
+     async ({ input_text }) => ({
+       content: [{ type: "text", text: `Processed: ${input_text}` }]
+     })
+   );
+   ```
+
+5. **Run your server**:
+   ```bash
+   deno run --allow-all my-awesome-server.ts
+   ```
+
+### Method 2: From Scratch (Understanding Every Line)
+
+#### Python from Scratch:
+1. **Create a new file** `my-server.py`:
+   ```python
+   #!/usr/bin/env -S uv run --script
+   # /// script
+   # requires-python = ">=3.12"
+   # dependencies = [
+   #   "mcp>=1.9.0",
+   # ]
+   # ///
+   
+   import os
+   from mcp.server.fastmcp import FastMCP
+   
+   # Create your server
+   mcp = FastMCP(name="My First MCP Server")
+   
+   # Add a simple tool
+   @mcp.tool()
+   def greet(name: str) -> str:
+       """Greet someone by name"""
+       return f"Hello, {name}!"
+   
+   # Add a resource
+   @mcp.resource("info://server")
+   def server_info() -> str:
+       """Get server information"""
+       return "This is my first MCP server!"
+   
+   # Run the server
+   if __name__ == "__main__":
+       mcp.run()
+   ```
+
+2. **Make it executable and run**:
+   ```bash
+   chmod +x my-server.py
+   uv run my-server.py
+   ```
+
+#### TypeScript from Scratch:
+1. **Create a new file** `my-server.ts`:
+   ```typescript
+   #!/usr/bin/env -S deno run --allow-all
+   
+   import { McpServer } from "npm:@modelcontextprotocol/sdk@1.12.1/server/mcp.js";
+   import { StdioServerTransport } from "npm:@modelcontextprotocol/sdk@1.12.1/server/stdio.js";
+   import { z } from "npm:zod@3.21.4";
+   
+   // Create your server
+   const server = new McpServer({
+     name: "My First MCP Server",
+     version: "1.0.0"
+   });
+   
+   // Add a simple tool
+   server.tool(
+     "greet",
+     { name: z.string() },
+     async ({ name }) => ({
+       content: [{ type: "text", text: `Hello, ${name}!` }]
+     })
+   );
+   
+   // Add a resource
+   server.resource(
+     "server-info",
+     "info://server",
+     async () => ({
+       contents: [{
+         uri: "info://server",
+         text: "This is my first MCP server!"
+       }]
+     })
+   );
+   
+   // Run the server
+   async function main() {
+     const transport = new StdioServerTransport();
+     await server.connect(transport);
+   }
+   
+   if (import.meta.main) {
+     main();
+   }
+   ```
+
+2. **Make it executable and run**:
+   ```bash
+   chmod +x my-server.ts
+   ./my-server.ts
+   ```
+
+## � Connect to MCP Clients
+
+Once your server is running, connect it to any MCP client:
+
+### Claude Desktop Configuration
+
+Add to your `mcp.json` file (usually in `~/Library/Application Support/Claude/` on macOS):
+
+#### Python Server
 ```json
 {
   "mcpServers": {
-    "ez-mcp-python": {
+    "my-python-server": {
       "command": "uv",
-      "args": ["run", "/path/to/ez-mcp.py"],
+      "args": ["run", "/absolute/path/to/your-server.py"],
       "env": {
-        "GREETING_PREFIX": "Hello"
+        "MY_API_KEY": "your-key-here"
       }
     }
   }
 }
 ```
 
-### TypeScript/Deno Server
+#### TypeScript Server
 ```json
 {
   "mcpServers": {
-    "ez-mcp-typescript": {
+    "my-typescript-server": {
       "command": "deno", 
-      "args": ["run", "--allow-all", "/path/to/ez-mcp.ts"],
+      "args": ["run", "--allow-all", "/absolute/path/to/your-server.ts"],
       "env": {
-        "GREETING_PREFIX": "Hello"
+        "MY_API_KEY": "your-key-here"
       }
     }
   }
 }
 ```
 
-## 🎯 Features Demonstrated
+### Other MCP Clients
 
-| Feature | Python (ez-mcp.py) | TypeScript (ez-mcp.ts) |
-|---------|-------------------|------------------------|
-| Resources | ✅ Server info via `server://info` | ✅ Server info via `server://info` |
-| Tools | ✅ `hello_someone` function | ✅ `hello-someone` function |
-| Prompts | ✅ `greeting_prompt` template | ✅ `greeting-prompt` template |
-| Environment Variables | ✅ `GREETING_PREFIX` support | ✅ `GREETING_PREFIX` support |
-| Error Handling | ✅ Input validation | ✅ Input validation |
-| Type Safety | ✅ Pydantic schemas | ✅ Zod schemas |
+These servers work with any MCP client! Just use the same command and args from above.
 
-## 📚 Learn More
+## 🛠️ Development and Testing
 
-- **Python FastMCP**: Check the comments in `ez-mcp.py` for extensive documentation
-- **TypeScript SDK**: Check the comments in `ez-mcp.ts` for comprehensive examples
-- **MCP Specification**: https://modelcontextprotocol.io/
-- **Python SDK**: https://github.com/modelcontextprotocol/python-sdk  
-- **TypeScript SDK**: https://github.com/modelcontextprotocol/typescript-sdk
+### Use MCP Inspector for Development
 
-## 🛠️ Extending the Servers
+The MCP Inspector provides a web interface to test your server:
 
-Both servers are designed to be easily extended. See the comprehensive inline documentation in each file for examples of:
+#### Python
+```bash
+# Install the inspector
+pip install mcp
 
-- Adding new tools and resources
-- Database integration
-- External API integration  
-- Error handling patterns
-- Environment configuration
-- And much more!
+# Run with inspector
+uv run mcp dev your-server.py
+```
+
+#### TypeScript
+```bash
+# Install the inspector
+npm install -g @modelcontextprotocol/inspector
+
+# Run with inspector  
+npx @modelcontextprotocol/inspector deno run --allow-all your-server.ts
+```
+
+This opens a web interface where you can:
+- 🔍 Browse available tools, resources, and prompts
+- ▶️ Test tools with different parameters
+- 📖 View resource contents
+- 🧪 Experiment with prompts
+
+### Adding Dependencies
+
+#### Python
+Edit the dependencies section at the top of your `.py` file:
+```python
+# dependencies = [
+#   "mcp>=1.9.0",
+#   "requests",     # For HTTP requests
+#   "pandas",       # For data manipulation  
+#   "sqlalchemy",   # For database access
+# ]
+```
+
+#### TypeScript  
+Simply import what you need - Deno handles the rest:
+```typescript
+import { parse } from "https://deno.land/std@0.224.0/csv/mod.ts";
+import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
+import { DB } from "https://deno.land/x/sqlite@v3.8/mod.ts";
+```
+
+## 💡 Real-World Examples
+
+### Quick File Search Tool
+```python
+# Python
+@mcp.tool()
+def search_files(pattern: str, directory: str = ".") -> str:
+    """Search for files matching a pattern"""
+    import glob
+    import os
+    matches = glob.glob(os.path.join(directory, f"**/*{pattern}*"), recursive=True)
+    return f"Found {len(matches)} files: {matches[:10]}"  # Show first 10
+```
+
+```typescript
+// TypeScript  
+server.tool(
+  "search-files",
+  { pattern: z.string(), directory: z.string().default(".") },
+  async ({ pattern, directory }) => {
+    const matches = [];
+    for await (const entry of Deno.readDir(directory)) {
+      if (entry.name.includes(pattern)) {
+        matches.push(entry.name);
+      }
+    }
+    return {
+      content: [{ type: "text", text: `Found files: ${matches.join(", ")}` }]
+    };
+  }
+);
+```
+
+### Web Scraper Tool
+```python
+# Python (add "requests" to dependencies)
+@mcp.tool()
+async def scrape_url(url: str) -> str:
+    """Scrape text content from a URL"""
+    import httpx
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        return response.text[:1000]  # First 1000 chars
+```
+
+```typescript
+// TypeScript
+server.tool(
+  "scrape-url", 
+  { url: z.string() },
+  async ({ url }) => {
+    const response = await fetch(url);
+    const text = await response.text();
+    return {
+      content: [{ type: "text", text: text.slice(0, 1000) }]
+    };
+  }
+);
+```
+
+### Database Query Tool
+```python
+# Python (add "sqlite3" - built-in)
+@mcp.tool()
+def query_db(sql: str) -> str:
+    """Execute a SQL query"""
+    import sqlite3
+    conn = sqlite3.connect("data.db")
+    results = conn.execute(sql).fetchall()
+    conn.close()
+    return str(results)
+```
+
+```typescript
+// TypeScript
+import { DB } from "https://deno.land/x/sqlite@v3.8/mod.ts";
+
+const db = new DB("data.db");
+
+server.tool(
+  "query-db",
+  { sql: z.string() },
+  async ({ sql }) => {
+    const results = db.queryEntries(sql);
+    return {
+      content: [{ type: "text", text: JSON.stringify(results, null, 2) }]
+    };
+  }
+);
+```
+
+## 🏗️ Template Features Explained
+
+Both templates include identical functionality to demonstrate all MCP capabilities:
+
+### 📊 Resources (Data Sources)
+- **`server://info`** - Dynamic server information
+- Shows how to create data sources that LLMs can access
+- Perfect for configuration, documentation, or live data
+
+### 🛠️ Tools (LLM Functions)  
+- **`hello_someone`** (Python) / **`hello-someone`** (TypeScript)
+- Demonstrates parameter validation and environment variables
+- Template for any function you want LLMs to call
+
+### 📝 Prompts (Templates)
+- **`greeting_prompt`** (Python) / **`greeting-prompt`** (TypeScript)  
+- Shows how to create reusable prompt templates
+- Perfect for complex instructions or workflows
+
+### ⚙️ Configuration
+- Environment variable support (`GREETING_PREFIX`)
+- Error handling and input validation
+- Production-ready logging and startup messages
+
+## � Common Use Cases
+
+**Perfect for:**
+- 🧪 **Rapid Prototyping**: Test MCP ideas in minutes
+- 🔧 **Personal Automation**: Quick scripts for daily tasks  
+- 📊 **Data Access**: Connect LLMs to your databases/APIs
+- 🌐 **Web Integration**: Scrape sites, call APIs, process data
+- 📁 **File Operations**: Search, read, write, organize files
+- 🔍 **Development Tools**: Code analysis, documentation, testing
+- 💼 **Business Logic**: Custom workflows and integrations
+
+## 📚 Learn More & Get Help
+
+### Essential Resources
+- 📖 **MCP Specification**: https://modelcontextprotocol.io/
+- 🐍 **Python SDK Docs**: https://github.com/modelcontextprotocol/python-sdk  
+- 📜 **TypeScript SDK Docs**: https://github.com/modelcontextprotocol/typescript-sdk
+- � **MCP Community**: Join the discussions and get help
+
+### Deep Dive Into the Code
+Both template files contain **extensive inline documentation** with:
+- Line-by-line explanations
+- Advanced usage patterns  
+- Integration examples (databases, APIs, file systems)
+- Error handling best practices
+- Performance optimization tips
+- Production deployment guidance
+
+**Read the source code** - it's designed to teach you everything you need to know!
+
+## 🤝 Contributing & Feedback
+
+Found these templates helpful? Have ideas for improvements? We'd love to hear from you!
+
+- 🐛 Report issues or suggest features
+- 📝 Share your cool MCP server creations  
+- 🔧 Submit improvements to the templates
+- 📚 Help improve documentation
 
 ## 📜 License
 
-MIT License - see LICENSE file for details.
+MIT License - Use these templates however you want! See LICENSE file for details.
