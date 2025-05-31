@@ -2,7 +2,7 @@
 
 **Get an MCP server running in under 2 minutes!** This repository contains the absolute easiest ## � Connect to MCP Clients
 
-Once your server is running, connect it to any MCP client by adding it to your `mcp.json` configuration file:es for creating Model Context Protocol (MCP) servers. Whether you need to quickly prototype an idea, solve an immediate problem, or build a production server, these templates are your fastest path forward.
+Once your server is running, connect it to any MCP client by adding it to your `mcp.json` configuration file:es for creating Model Context Protocol (MCP) servers. Whether you need to quickly prototype an idea or solve an immediate problem, these templates are your fastest path forward.
 
 ## 🚀 Why EZ-MCP?
 
@@ -24,8 +24,6 @@ Each template demonstrates all core MCP features:
 - 🛠️ **Tools**: Functions LLMs can call to perform actions  
 - 📝 **Prompts**: Reusable templates for LLM interactions
 - ⚙️ **Configuration**: Environment variable support
-- 🛡️ **Error Handling**: Robust input validation
-- 🔒 **Type Safety**: Full type checking (Pydantic/Zod)
 
 ## ⚡ Quick Test Drive
 
