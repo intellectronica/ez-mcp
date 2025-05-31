@@ -14,7 +14,7 @@
 
 Two functionally identical, battle-tested templates:
 
-- **`ez-mcp.py`** - Python server using official MCP SDK with FastMCP
+- **`ez-mcp.py`** - Python server using official MCP SDK with UV
 - **`ez-mcp.ts`** - TypeScript server using official MCP SDK with Deno
 
 Each template demonstrates all core MCP features:
