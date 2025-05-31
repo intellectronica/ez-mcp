@@ -29,15 +29,15 @@ uv run ez-mcp.py
 uv run mcp dev ez-mcp.py
 ```
 
-### Option 3: Install in Claude Desktop
+### Option 3: Install in MCP Client
 ```bash
 uv run mcp install ez-mcp.py
 ```
 
-## Claude Desktop Configuration
+## MCP Client Configuration
 
-To use this server with Claude Desktop, add this configuration to your
-`claude_desktop_config.json` file:
+To use this server with an MCP Client, add this configuration to your
+`mcp.json` file:
 
 ```json
 {
@@ -249,7 +249,7 @@ def main():
     print("")
     print("📡 Server running on stdio transport...")
     print("   Use 'uv run mcp dev ez-mcp.py' to open the MCP Inspector")
-    print("   Or configure this server in Claude Desktop")
+    print("   Or configure this server in your MCP Client")
     print("")
     
     # Run the server

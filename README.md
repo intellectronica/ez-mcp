@@ -24,7 +24,7 @@ uv run ez-mcp.py
 # Or with development mode
 uv run mcp dev ez-mcp.py
 
-# Or install in Claude Desktop
+# Or install in MCP Client
 uv run mcp install ez-mcp.py
 ```
 
@@ -42,9 +42,9 @@ chmod +x ez-mcp.ts
 mcp dev deno run --allow-all ez-mcp.ts
 ```
 
-## 🔧 Claude Desktop Configuration
+## 🔧 MCP Client Configuration
 
-Add either server to your `claude_desktop_config.json`:
+Add either server to your `mcp.json`:
 
 ### Python Server
 ```json

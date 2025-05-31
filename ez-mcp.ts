@@ -29,13 +29,13 @@
  * # Install MCP Inspector globally if not already installed
  * npm install -g @modelcontextprotocol/inspector
  * # Run with inspector
- * mcp dev deno run --allow-all ez-mcp.ts
+ * npx @modelcontextprotocol/inspector deno run --allow-all ez-mcp.ts
  * ```
  * 
- * ## Claude Desktop Configuration
+ * ## MCP Client Configuration
  * 
- * To use this server with Claude Desktop, add this configuration to your
- * `claude_desktop_config.json` file:
+ * To use this server with an MCP Client, add this configuration to your
+ * `mcp.json` file:
  * 
  * ```json
  * {
@@ -194,9 +194,9 @@
  * https://github.com/modelcontextprotocol/typescript-sdk
  */
 
-import { McpServer, ResourceTemplate } from "npm:@modelcontextprotocol/sdk@1.12.1/server/mcp.js";
-import { StdioServerTransport } from "npm:@modelcontextprotocol/sdk@1.12.1/server/stdio.js";
-import { z } from "npm:zod@3.23.8";
+import { McpServer, ResourceTemplate } from "npm:@modelcontextprotocol/sdk@1.11.0/server/mcp.js";
+import { StdioServerTransport } from "npm:@modelcontextprotocol/sdk@1.11.0/server/stdio.js";
+import { z } from "npm:zod@3.21.4";
 
 // Create the MCP server
 const server = new McpServer({
@@ -239,9 +239,17 @@ server.resource(
 
 server.tool(
   "hello-someone",
-  { name: z.string().describe("The name of the person to greet") },
+  "Greet someone by name",
+  {
+    name: {
+      type: "string",
+      description: "The name of the person to greet"
+    }
+  },
   async ({ name }) => {
-    if (!name.trim()) {
+    console.log("Tool called with name:", name);
+    
+    if (!name || !name.trim()) {
       return {
         content: [{ type: "text", text: "Error: Please provide a name" }],
         isError: true
@@ -307,8 +315,8 @@ async function main() {
   console.log(`   • Greeting prefix: ${Deno.env.get("GREETING_PREFIX") ?? "Hello"}`);
   console.log("");
   console.log("📡 Server running on stdio transport...");
-  console.log("   Use 'mcp dev deno run --allow-all ez-mcp.ts' to open the MCP Inspector");
-  console.log("   Or configure this server in Claude Desktop");
+  console.log("   Use 'npx @modelcontextprotocol/inspector deno run --allow-all ez-mcp.ts' to open the MCP Inspector");
+  console.log("   Or configure this server in your MCP Client");
   console.log("");
   
   // Create transport and connect
