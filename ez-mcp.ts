@@ -6,9 +6,9 @@
  * This is a comprehensive example of a Model Context Protocol (MCP) server implemented
  * using the MCP TypeScript SDK for Deno. It demonstrates all major MCP functionality:
  * 
- * 1. **Resources**: Static and dynamic data sources that provide context to LLMs
- * 2. **Tools**: Functions that LLMs can call to perform actions or computations  
- * 3. **Prompts**: Reusable templates for LLM interactions
+ * 1. **Resources**: Static data sources that provide context to LLMs (1 resource: server info)
+ * 2. **Tools**: Functions that LLMs can call to perform actions or computations (1 tool: hello-someone)
+ * 3. **Prompts**: Reusable templates for LLM interactions (1 prompt: greeting-prompt)
  * 4. **Server Management**: Proper lifecycle handling and configuration
  * 
  * ## How to Run This Server
@@ -72,6 +72,18 @@
  * ```typescript
  * server.resource(
  *   "my-data",
+ *   "my-data://some-path",
+ *   async (uri) => ({
+ *     contents: [{
+ *       uri: uri.href,
+ *       text: `Data content here`
+ *     }]
+ *   })
+ * );
+ * 
+ * // For dynamic resources with parameters, use ResourceTemplate:
+ * server.resource(
+ *   "my-dynamic-data",
  *   new ResourceTemplate("my-data://{category}", { list: undefined }),
  *   async (uri, { category }) => ({
  *     contents: [{
@@ -185,7 +197,7 @@
  * ## Architecture Notes
  * 
  * - **McpServer**: High-level server interface that handles protocol details
- * - **Resource Templates**: Use ResourceTemplate for dynamic resources with parameters
+ * - **Resources**: This example uses a simple static resource; ResourceTemplate can be used for dynamic resources with parameters
  * - **Type Safety**: Use Zod schemas for type-safe parameter validation
  * - **Async Support**: Tools and resources can be async functions for I/O operations
  * - **StdioServerTransport**: Uses stdio transport for command-line integration
@@ -217,7 +229,7 @@ server.resource(
       name: "EZ-MCP Demo Server",
       version: "1.0.0", 
       description: "A simple MCP server demonstrating basic functionality",
-      features: ["hello tool", "greeting prompt", "server info resource"],
+      features: ["hello-someone tool", "greeting-prompt prompt", "server-info resource"],
       author: "EZ-MCP",
       status: "running",
       greeting_prefix: greetingPrefix,
@@ -298,9 +310,9 @@ Make it genuine and engaging.`
 async function main() {
   console.log("🚀 Starting EZ-MCP Demo Server...");
   console.log("📖 Simple MCP server with:");
-  console.log("   • 1 Resource: Server info");
-  console.log("   • 1 Tool: Hello someone");
-  console.log("   • 1 Prompt: Greeting template");
+  console.log("   • 1 Resource: server-info");
+  console.log("   • 1 Tool: hello-someone");
+  console.log("   • 1 Prompt: greeting-prompt");
   console.log("");
   console.log("🔧 Configuration:");
   console.log(`   • Environment: ${Deno.env.get("ENVIRONMENT") ?? "development"}`);
