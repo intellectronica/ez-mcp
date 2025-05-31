@@ -53,15 +53,16 @@ deno run --allow-all ez-mcp.ts
 
 Both servers will start immediately and show you what's available!
 
-## 🎯 Create Your Own Server (Step-by-Step)
+## 🎯 Create Your Own Server (Copy & Customize in 5 Minutes)
 
-### Method 1: Copy and Customize (Fastest)
+The fastest way to build your own MCP server is to copy one of our templates and customize it. Both templates are functionally identical and production-ready - just pick your preferred language!
 
-#### For Python:
+### For Python Developers:
+
 1. **Copy the template**:
    ```bash
    curl -O https://raw.githubusercontent.com/your-repo/ez-mcp/main/ez-mcp.py
-   # Or just copy the ez-mcp.py file contents
+   # Or just copy the ez-mcp.py file contents from this repo
    ```
 
 2. **Rename and customize**:
@@ -69,15 +70,15 @@ Both servers will start immediately and show you what's available!
    cp ez-mcp.py my-awesome-server.py
    ```
 
-3. **Edit the server details** (lines 45-48):
+3. **Edit the server details** (around line 160):
    ```python
    mcp = FastMCP(
-       name="My Awesome Server",  # <- Change this
+       name="My Awesome Server",  # <- Change this to your server name
        dependencies=["mcp>=1.9.0"]
    )
    ```
 
-4. **Add your own tools** (copy this pattern):
+4. **Add your own tools** (copy this pattern anywhere in the file):
    ```python
    @mcp.tool()
    def my_custom_tool(input_text: str) -> str:
@@ -91,11 +92,12 @@ Both servers will start immediately and show you what's available!
    uv run my-awesome-server.py
    ```
 
-#### For TypeScript:
+### For TypeScript/JavaScript Developers:
+
 1. **Copy the template**:
    ```bash
    curl -O https://raw.githubusercontent.com/your-repo/ez-mcp/main/ez-mcp.ts
-   # Or just copy the ez-mcp.ts file contents
+   # Or just copy the ez-mcp.ts file contents from this repo
    ```
 
 2. **Rename and customize**:
@@ -104,15 +106,15 @@ Both servers will start immediately and show you what's available!
    chmod +x my-awesome-server.ts
    ```
 
-3. **Edit the server details** (lines 163-166):
+3. **Edit the server details** (around line 160):
    ```typescript
    const server = new McpServer({
-     name: "My Awesome Server",  // <- Change this
+     name: "My Awesome Server",  // <- Change this to your server name
      version: "1.0.0"
    });
    ```
 
-4. **Add your own tools** (copy this pattern):
+4. **Add your own tools** (copy this pattern anywhere in the file):
    ```typescript
    server.tool(
      "my-custom-tool",
@@ -128,100 +130,17 @@ Both servers will start immediately and show you what's available!
    deno run --allow-all my-awesome-server.ts
    ```
 
-### Method 2: From Scratch (Understanding Every Line)
+### 🎉 That's It! 
 
-#### Python from Scratch:
-1. **Create a new file** `my-server.py`:
-   ```python
-   #!/usr/bin/env -S uv run --script
-   # /// script
-   # requires-python = ">=3.12"
-   # dependencies = [
-   #   "mcp>=1.9.0",
-   # ]
-   # ///
-   
-   import os
-   from mcp.server.fastmcp import FastMCP
-   
-   # Create your server
-   mcp = FastMCP(name="My First MCP Server")
-   
-   # Add a simple tool
-   @mcp.tool()
-   def greet(name: str) -> str:
-       """Greet someone by name"""
-       return f"Hello, {name}!"
-   
-   # Add a resource
-   @mcp.resource("info://server")
-   def server_info() -> str:
-       """Get server information"""
-       return "This is my first MCP server!"
-   
-   # Run the server
-   if __name__ == "__main__":
-       mcp.run()
-   ```
+You now have a working MCP server! The templates include extensive inline documentation and examples for adding:
+- **Database connections** (SQLite, PostgreSQL, etc.)
+- **API integrations** (REST APIs, GraphQL, etc.)
+- **File operations** (reading, writing, searching)
+- **Web scraping** 
+- **Environment variables** and configuration
+- **Error handling** and validation
 
-2. **Make it executable and run**:
-   ```bash
-   chmod +x my-server.py
-   uv run my-server.py
-   ```
-
-#### TypeScript from Scratch:
-1. **Create a new file** `my-server.ts`:
-   ```typescript
-   #!/usr/bin/env -S deno run --allow-all
-   
-   import { McpServer } from "npm:@modelcontextprotocol/sdk@1.12.1/server/mcp.js";
-   import { StdioServerTransport } from "npm:@modelcontextprotocol/sdk@1.12.1/server/stdio.js";
-   import { z } from "npm:zod@3.21.4";
-   
-   // Create your server
-   const server = new McpServer({
-     name: "My First MCP Server",
-     version: "1.0.0"
-   });
-   
-   // Add a simple tool
-   server.tool(
-     "greet",
-     { name: z.string() },
-     async ({ name }) => ({
-       content: [{ type: "text", text: `Hello, ${name}!` }]
-     })
-   );
-   
-   // Add a resource
-   server.resource(
-     "server-info",
-     "info://server",
-     async () => ({
-       contents: [{
-         uri: "info://server",
-         text: "This is my first MCP server!"
-       }]
-     })
-   );
-   
-   // Run the server
-   async function main() {
-     const transport = new StdioServerTransport();
-     await server.connect(transport);
-   }
-   
-   if (import.meta.main) {
-     main();
-   }
-   ```
-
-2. **Make it executable and run**:
-   ```bash
-   chmod +x my-server.ts
-   ./my-server.ts
-   ```
+Just read through the template code - it's designed to teach you everything you need to know!
 
 ## � Connect to MCP Clients
 
