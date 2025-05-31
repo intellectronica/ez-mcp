@@ -194,8 +194,8 @@
  * https://github.com/modelcontextprotocol/typescript-sdk
  */
 
-import { McpServer, ResourceTemplate } from "npm:@modelcontextprotocol/sdk@1.11.0/server/mcp.js";
-import { StdioServerTransport } from "npm:@modelcontextprotocol/sdk@1.11.0/server/stdio.js";
+import { McpServer, ResourceTemplate } from "npm:@modelcontextprotocol/sdk@1.12.1/server/mcp.js";
+import { StdioServerTransport } from "npm:@modelcontextprotocol/sdk@1.12.1/server/stdio.js";
 import { z } from "npm:zod@3.21.4";
 
 // Create the MCP server
@@ -239,23 +239,15 @@ server.resource(
 
 server.tool(
   "hello-someone",
-  "Greet someone by name",
-  {
-    name: {
-      type: "string",
-      description: "The name of the person to greet"
-    }
-  },
+  { name: z.string().describe("The name of the person to greet") },
   async ({ name }) => {
-    console.log("Tool called with name:", name);
-    
-    if (!name || !name.trim()) {
+    if (!name.trim()) {
       return {
         content: [{ type: "text", text: "Error: Please provide a name" }],
         isError: true
       };
     }
-    
+
     const trimmedName = name.trim();
     const greetingPrefix = Deno.env.get("GREETING_PREFIX") ?? "Hello";
     return {
