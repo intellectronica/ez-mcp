@@ -53,9 +53,9 @@ deno run --allow-all ez-mcp.ts
 
 Both servers will start immediately and show you what's available!
 
-## 🎯 Create Your Own Server (Copy & Customize in 5 Minutes)
+## 🎯 Create Your Own Server (Copy & Customise in 5 Minutes)
 
-The fastest way to build your own MCP server is to copy one of our templates and customize it. Both templates are functionally identical and production-ready - just pick your preferred language!
+The fastest way to build your own MCP server is to copy one of our templates and customise it. Both templates are functionally identical and production-ready - just pick your preferred language!
 
 ### For Python Developers:
 
@@ -65,7 +65,7 @@ The fastest way to build your own MCP server is to copy one of our templates and
    # Or just copy the ez-mcp.py file contents from this repo
    ```
 
-2. **Rename and customize**:
+2. **Rename and customise**:
    ```bash
    cp ez-mcp.py my-awesome-server.py
    ```
@@ -100,7 +100,7 @@ The fastest way to build your own MCP server is to copy one of our templates and
    # Or just copy the ez-mcp.ts file contents from this repo
    ```
 
-2. **Rename and customize**:
+2. **Rename and customise**:
    ```bash
    cp ez-mcp.ts my-awesome-server.ts
    chmod +x my-awesome-server.ts
@@ -353,7 +353,7 @@ Both templates include identical functionality to demonstrate all MCP capabiliti
 - 🔧 **Personal Automation**: Quick scripts for daily tasks  
 - 📊 **Data Access**: Connect LLMs to your databases/APIs
 - 🌐 **Web Integration**: Scrape sites, call APIs, process data
-- 📁 **File Operations**: Search, read, write, organize files
+- 📁 **File Operations**: Search, read, write, organise files
 - 🔍 **Development Tools**: Code analysis, documentation, testing
 - 💼 **Business Logic**: Custom workflows and integrations
 
@@ -371,7 +371,7 @@ Both template files contain **extensive inline documentation** with:
 - Advanced usage patterns  
 - Integration examples (databases, APIs, file systems)
 - Error handling best practices
-- Performance optimization tips
+- Performance optimisation tips
 - Production deployment guidance
 
 **Read the source code** - it's designed to teach you everything you need to know!
