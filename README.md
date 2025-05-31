@@ -386,3 +386,5 @@ Found these templates helpful? Have ideas for improvements? We'd love to hear fr
 ## 📜 License
 
 MIT License - Use these templates however you want! See LICENSE file for details.
+
+© Eleanor Berger — [ai.intellectronica.net](https://ai.intellectronica.net/)
