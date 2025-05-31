@@ -146,9 +146,9 @@ Just read through the template code - it's designed to teach you everything you 
 
 Once your server is running, connect it to any MCP client:
 
-### Claude Desktop Configuration
+### MCP Client Configuration
 
-Add to your `mcp.json` file (usually in `~/Library/Application Support/Claude/` on macOS):
+Add to your `mcp.json` file:
 
 #### Python Server
 ```json
@@ -179,10 +179,6 @@ Add to your `mcp.json` file (usually in `~/Library/Application Support/Claude/` 
   }
 }
 ```
-
-### Other MCP Clients
-
-These servers work with any MCP client that supports the MCP protocol! Just use the same command and args configuration shown above.
 
 ## 🛠️ Development and Testing
 
