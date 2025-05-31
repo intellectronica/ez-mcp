@@ -63,7 +63,7 @@ This server is designed to be easily extensible. Here are common modifications:
 ```python
 @mcp.tool()
 def my_new_tool(param1: str, param2: int) -> str:
-    \"\"\"Description of what this tool does\"\"\"
+    "Description of what this tool does"
     # Your implementation here
     return f"Result: {param1} x {param2}"
 ```
@@ -72,7 +72,7 @@ def my_new_tool(param1: str, param2: int) -> str:
 ```python
 @mcp.resource("my-data://{category}")
 def get_my_data(category: str) -> str:
-    \"\"\"Dynamic resource based on category\"\"\"
+    "Dynamic resource based on category"
     # Your implementation here
     return f"Data for {category}"
 ```
@@ -81,8 +81,8 @@ def get_my_data(category: str) -> str:
 ```python
 @mcp.prompt()
 def my_prompt_template(task: str) -> str:
-    \"\"\"Custom prompt template\"\"\"
-    return f"Please help me with: {task}\\n\\nProvide a detailed response."
+    "Custom prompt template"
+    return f"Please help me with: {task}\n\nProvide a detailed response."
 ```
 
 ### Adding Database Integration
@@ -109,7 +109,7 @@ import httpx
 
 @mcp.tool()
 async def fetch_external_data(url: str) -> str:
-    \"\"\"Fetch data from external API\"\"\"
+    "Fetch data from external API"
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
         return response.text
@@ -129,7 +129,7 @@ Add proper error handling to your tools:
 ```python
 @mcp.tool()
 def safe_division(a: float, b: float) -> float:
-    \"\"\"Safely divide two numbers\"\"\"
+    "Safely divide two numbers"
     if b == 0:
         raise ValueError("Cannot divide by zero")
     return a / b
@@ -180,13 +180,16 @@ mcp = FastMCP(
 @mcp.resource("server://info")
 def get_server_info() -> str:
     """Get information about this MCP server"""
+    greeting_prefix = os.getenv("GREETING_PREFIX", "Hello")
     info = {
         "name": "EZ-MCP Demo Server",
         "version": "1.0.0",
         "description": "A simple MCP server demonstrating basic functionality",
         "features": ["hello tool", "greeting prompt", "server info resource"],
         "author": "EZ-MCP",
-        "status": "running"
+        "status": "running",
+        "greeting_prefix": greeting_prefix,
+        "sample_greeting": f"{greeting_prefix}, World!"
     }
     return json.dumps(info, indent=2)
 
@@ -202,7 +205,8 @@ def hello_someone(name: str) -> str:
         return "Error: Please provide a name"
     
     name = name.strip()
-    return f"Hello, {name}! Nice to meet you!"
+    greeting_prefix = os.getenv("GREETING_PREFIX", "Hello")
+    return f"{greeting_prefix}, {name}! Nice to meet you!"
 
 
 # ================================================================================
@@ -212,13 +216,17 @@ def hello_someone(name: str) -> str:
 @mcp.prompt()
 def greeting_prompt(person_name: str) -> str:
     """Generate a greeting prompt for someone"""
-    return f"""Please create a warm and friendly greeting for {person_name}.
+    greeting_prefix = os.getenv("GREETING_PREFIX", "Hello")
+    return f"""Please create a warm and friendly greeting for {person_name} that starts with "{greeting_prefix}".
 
 The greeting should be:
-1. Warm and welcoming
-2. Professional yet friendly
-3. Appropriate for a first meeting
-4. Memorable and personal
+1. Begin with the word "{greeting_prefix}"
+2. Be warm and welcoming
+3. Professional yet friendly
+4. Appropriate for a first meeting
+5. Memorable and personal
+
+Example format: "{greeting_prefix}, [name]! [additional friendly message]"
 
 Make it genuine and engaging."""
 
