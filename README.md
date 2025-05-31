@@ -1,6 +1,8 @@
 # EZ-MCP: The Fastest Way to Build MCP Servers
 
-**Get an MCP server running in under 2 minutes!** This repository contains the absolute easiest templates for creating Model Context Protocol (MCP) servers. Whether you need to quickly prototype an idea, solve an immediate problem, or build a production server, these templates are your fastest path forward.
+**Get an MCP server running in under 2 minutes!** This repository contains the absolute easiest ## � Connect to MCP Clients
+
+Once your server is running, connect it to any MCP client by adding it to your `mcp.json` configuration file:es for creating Model Context Protocol (MCP) servers. Whether you need to quickly prototype an idea, solve an immediate problem, or build a production server, these templates are your fastest path forward.
 
 ## 🚀 Why EZ-MCP?
 
@@ -182,7 +184,7 @@ Add to your `mcp.json` file (usually in `~/Library/Application Support/Claude/` 
 
 ### Other MCP Clients
 
-These servers work with any MCP client! Just use the same command and args from above.
+These servers work with any MCP client that supports the MCP protocol! Just use the same command and args configuration shown above.
 
 ## 🛠️ Development and Testing
 
