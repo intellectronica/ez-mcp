@@ -2,7 +2,7 @@
 # /// script
 # requires-python = ">=3.12"
 # dependencies = [
-#   "mcp>=1.9.0",
+#   "mcp>=1.17.0",
 # ]
 # ///
 
@@ -139,7 +139,7 @@ def safe_division(a: float, b: float) -> float:
 To add new dependencies, modify the script metadata at the top:
 ```python
 # dependencies = [
-#   "mcp>=1.9.0",
+#   "mcp>=1.17.0",
 #   "httpx",      # For HTTP requests
 #   "pandas",     # For data manipulation
 #   "pillow",     # For image processing
@@ -170,7 +170,7 @@ from mcp.server.fastmcp import FastMCP
 # Create the MCP server
 mcp = FastMCP(
     name="EZ-MCP Demo Server",
-    dependencies=["mcp>=1.9.0"]
+    dependencies=["mcp>=1.17.0"]
 )
 
 # ================================================================================
